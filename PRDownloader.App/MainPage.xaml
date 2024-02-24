@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:PRDownloader.App.Viewmodels"
+             xmlns:converters="clr-namespace:PRDownloader.App.Converters"
+             x:DataType="viewmodel:MainPageViewModel"
+             x:Class="PRDownloader.App.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PercentageToProgressConverter x:Key="PercentageToProgressConverter" />
+            <converters:BytesToHumanReadableConverter x:Key="BytesToHumanReadableConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label Text="{Binding Downloader.State}" Style="{StaticResource Headline}"/>
+
+            <ProgressBar Progress="{Binding Downloader.DownloadProgress, Converter={StaticResource PercentageToProgressConverter}}"/>
+            <Label>
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Peers: {0}  Speed:{1}">
+                        <Binding Path="Downloader.TotalPeers" />
+                        <Binding Path="Downloader.DownloadSpeed" Converter="{StaticResource BytesToHumanReadableConverter}" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            
+            <Button
+                x:Name="CounterBtn"
+                Text="Start" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding StartCommand}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
