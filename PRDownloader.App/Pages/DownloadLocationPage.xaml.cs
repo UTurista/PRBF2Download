@@ -1,6 +1,6 @@
 using PRDownloader.App.Viewmodels;
 
-namespace PRDownloader.App;
+namespace PRDownloader.App.Pages;
 
 public partial class DownloadLocationPage : ContentPage
 {

@@ -3,18 +3,18 @@
     x:Class="PRDownloader.App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:PRDownloader.App"
+    xmlns:pages="clr-namespace:PRDownloader.App.Pages"
     Shell.FlyoutBehavior="Disabled"
     Title="PRDownloader.App">
 
     <ShellContent
         Title="Download Location"
-        ContentTemplate="{DataTemplate local:DownloadLocationPage}"
+        ContentTemplate="{DataTemplate pages:DownloadLocationPage}"
         Route="DownloadLocationPage" />
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
 
 

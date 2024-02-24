@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MonoTorrent.Client;
 using PRDownloader.App.Clients;
 using PRDownloader.App.Options;
+using PRDownloader.App.Pages;
 using PRDownloader.App.Services;
 using PRDownloader.App.Viewmodels;
 using System.Reflection;

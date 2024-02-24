@@ -4,7 +4,7 @@
              xmlns:viewmodel="clr-namespace:PRDownloader.App.Viewmodels"
              xmlns:converters="clr-namespace:PRDownloader.App.Converters"
              x:DataType="viewmodel:DownloadLocationViewModel"
-             x:Class="PRDownloader.App.DownloadLocationPage">
+             x:Class="PRDownloader.App.Pages.DownloadLocationPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:PercentageToProgressConverter x:Key="PercentageToProgressConverter" />
