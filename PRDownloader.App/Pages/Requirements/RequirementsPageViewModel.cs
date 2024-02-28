@@ -8,13 +8,15 @@ public partial class RequirementsPageViewModel : ObservableObject
 {
     private readonly TorrentInformationProvider _provider;
     private IShellNavigationService _navigationService;
+    private readonly IPreferences _preferences;
     [ObservableProperty]
-    private string _errorMessage;
+    private string _errorMessage = string.Empty;
 
-    public RequirementsPageViewModel(TorrentInformationProvider provider, IShellNavigationService navigationService)
+    public RequirementsPageViewModel(TorrentInformationProvider provider, IShellNavigationService navigationService, IPreferences preferences)
     {
         _provider = provider;
         _navigationService = navigationService;
+        _preferences = preferences;
     }
 
     internal async Task StartRequirementsCheck()
@@ -22,11 +24,13 @@ public partial class RequirementsPageViewModel : ObservableObject
         var result = await _provider.GetInformationAsync();
         if (result.IsSuccess)
         {
-            await _navigationService.GoToAsync("///SettingsPage");
+            var downloadLocation = _preferences.Get(PreferenceKey.DownloadLocation, string.Empty);
+            var nextPage = Directory.Exists(downloadLocation) ? "///DownloadPage" : "///SettingsPage";
+            await _navigationService.GoToAsync(nextPage);
         }
         else
         {
-            _errorMessage = "Unable to access";
+            ErrorMessage = "Unable to access";
         }
     }
 }
