@@ -5,18 +5,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:download="clr-namespace:PRDownloader.App.Pages.Download"
     xmlns:settings="clr-namespace:PRDownloader.App.Pages.Settings"
+    xmlns:requirements="clr-namespace:PRDownloader.App.Pages.Requirements"
     Shell.FlyoutBehavior="Disabled"
     Title="PRDownloader.App">
 
     <ShellContent
+      ContentTemplate="{DataTemplate requirements:RequirementsPage}"
+      Route="RequirementsPage" />
+    
+    <ShellContent
         Title="Download Location"
         ContentTemplate="{DataTemplate settings:SettingsPage}"
-        Route="DownloadLocationPage" />
+        Route="SettingsPage" />
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate download:DownloadPage}"
-        Route="MainPage" />
+        Route="DownloadPage" />
 
 
 </Shell>

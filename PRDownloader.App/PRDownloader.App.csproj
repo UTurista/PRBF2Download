@@ -75,6 +75,9 @@
 	  <Compile Update="Pages\Download\DownloadPage.xaml.cs">
 	    <DependentUpon>DownloadPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\Requirements\RequirementsPage.xaml.cs">
+	    <DependentUpon>RequirementsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Settings\SettingsPage.xaml.cs">
 	    <Generator></Generator>
 	    <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -86,6 +89,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Controls\FolderPicker.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Requirements\RequirementsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Settings\SettingsPage.xaml">

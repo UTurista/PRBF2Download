@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using PRDownloader.App.Clients;
 using PRDownloader.App.Options;
 using PRDownloader.App.Pages.Download;
+using PRDownloader.App.Pages.Requirements;
 using PRDownloader.App.Pages.Settings;
 using PRDownloader.App.Services;
 using System.Reflection;
@@ -27,6 +28,8 @@ public static class MauiProgram
         builder.Configuration.AddConfiguration(CreateConfiguration());
        
         builder.Services.AddLogging();
+        builder.Services.AddTransient<RequirementsPage>();
+        builder.Services.AddTransient<RequirementsPageViewModel>();
         builder.Services.AddTransient<DownloadPage>();
         builder.Services.AddTransient<DownloadPageViewModel>();
         builder.Services.AddTransient<SettingsPage>();
