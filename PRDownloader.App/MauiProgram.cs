@@ -36,6 +36,7 @@ public static class MauiProgram
         builder.Services.AddHttpClient<TorrentInformationClient>();
         builder.Services.AddSingleton(FolderPicker.Default);
         builder.Services.AddSingleton<TorrentInformationProvider>();
+        builder.Services.AddSingleton<IShellNavigationService, ShellNavigationService>();
 
         builder.Services.Configure<TorrentOptions>(builder.Configuration.GetSection("Torrent"));
 

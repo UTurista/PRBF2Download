@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:PRDownloader.App.Controls"
              xmlns:viewmodel="clr-namespace:PRDownloader.App.Viewmodels"
              xmlns:converters="clr-namespace:PRDownloader.App.Converters"
              x:DataType="viewmodel:DownloadLocationViewModel"
              x:Class="PRDownloader.App.Pages.DownloadLocationPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:PercentageToProgressConverter x:Key="PercentageToProgressConverter" />
-            <converters:BytesToHumanReadableConverter x:Key="BytesToHumanReadableConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
-
-    <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
-			<HorizontalStackLayout>
-                <Editor Text="{Binding DownloadLocation}"></Editor>
-				<Button Text="Select" Command="{Binding PickDownloadLocationCommand}"></Button>
-			</HorizontalStackLayout>
-		</VerticalStackLayout>
-    </ScrollView>
-
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <Label Text="PR:BF2 Download Assistant"/>
+        <Label Text="This utility will download the official Project Reality Installer."/>
+        <Label Text="Please choose where to save the installer."/>
+        <controls:FolderPicker DownloadLocation="{Binding DownloadLocation}" />
+        <Button Text="Continue" Command="{Binding ContinueToNextPageCommand}" />
+    </VerticalStackLayout>
 </ContentPage>

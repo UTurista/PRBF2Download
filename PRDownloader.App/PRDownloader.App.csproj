@@ -81,6 +81,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\FolderPicker.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\DownloadLocationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
