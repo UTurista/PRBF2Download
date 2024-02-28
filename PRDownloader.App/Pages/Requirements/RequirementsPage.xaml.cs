@@ -8,12 +8,13 @@ public partial class RequirementsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        base.OnAppearing();
-        if(BindingContext is RequirementsPageViewModel viewModel)
+        base.OnNavigatedTo(args);
+
+        if (BindingContext is RequirementsPageViewModel viewModel)
         {
-            viewModel.StartRequirementsCheck();
+            _ = viewModel.StartRequirementsCheck();
         }
     }
 }

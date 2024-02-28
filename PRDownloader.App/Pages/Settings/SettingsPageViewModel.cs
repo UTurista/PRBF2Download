@@ -9,16 +9,17 @@ public partial class SettingsPageViewModel : ObservableObject
 {
     private readonly IFolderPicker _folderPicker;
     private readonly IShellNavigationService _navigation;
+    private readonly IPreferences _preferences;
     [ObservableProperty]
     private string _downloadLocation = string.Empty;
 
-    public SettingsPageViewModel(IShellNavigationService navigation, IFolderPicker folderPicker, TorrentInformationProvider infoProvider)
+    public SettingsPageViewModel(IShellNavigationService navigation, IFolderPicker folderPicker, IPreferences preferences, TorrentInformationProvider infoProvider)
     {
-        var userFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        var downloadFolder = Path.Combine(userFolder, "Downloads");
-        DownloadLocation = downloadFolder;
+        _preferences = preferences;
+        DownloadLocation = _preferences.Get(PreferenceKey.DownloadLocation, GetDefaultDownloadFolder());
         _folderPicker = folderPicker;
         _navigation = navigation;
+
     }
 
     [RelayCommand]
@@ -28,6 +29,7 @@ public partial class SettingsPageViewModel : ObservableObject
         if (result.IsSuccessful)
         {
             DownloadLocation = result.Folder.Path;
+            _preferences.Set(PreferenceKey.DownloadLocation, DownloadLocation);
         }
     }
 
@@ -35,5 +37,11 @@ public partial class SettingsPageViewModel : ObservableObject
     private Task ContinueToNextPage()
     {
         return _navigation.GoToAsync("///MainPage");
+    }
+
+    private static string GetDefaultDownloadFolder()
+    {
+        var userFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        return Path.Combine(userFolder, "Downloads");
     }
 }
