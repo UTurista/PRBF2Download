@@ -36,7 +36,7 @@ public partial class SettingsPageViewModel : ObservableObject
     [RelayCommand]
     private Task ContinueToNextPage()
     {
-        return _navigation.GoToAsync("///MainPage");
+        return _navigation.GoToAsync("///DownloadPage");
     }
 
     private static string GetDefaultDownloadFolder()
