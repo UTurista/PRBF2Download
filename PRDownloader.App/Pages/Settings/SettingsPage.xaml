@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:PRDownloader.App.Controls"
-             xmlns:viewmodel="clr-namespace:PRDownloader.App.Viewmodels"
+             xmlns:viewmodel="clr-namespace:PRDownloader.App.Pages.Settings"
              xmlns:converters="clr-namespace:PRDownloader.App.Converters"
-             x:DataType="viewmodel:DownloadLocationViewModel"
-             x:Class="PRDownloader.App.Pages.DownloadLocationPage">
+             x:DataType="viewmodel:SettingsPageViewModel"
+             x:Class="PRDownloader.App.Pages.Settings.SettingsPage">
     <VerticalStackLayout Padding="30,0" Spacing="25">
         <Label Text="PR:BF2 Download Assistant"/>
         <Label Text="This utility will download the official Project Reality Installer."/>

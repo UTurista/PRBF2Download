@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PRDownloader.App.Clients;
 using PRDownloader.App.Options;
-using PRDownloader.App.Pages;
+using PRDownloader.App.Pages.Download;
+using PRDownloader.App.Pages.Settings;
 using PRDownloader.App.Services;
-using PRDownloader.App.Viewmodels;
 using System.Reflection;
 
 namespace PRDownloader.App;
@@ -27,10 +27,10 @@ public static class MauiProgram
         builder.Configuration.AddConfiguration(CreateConfiguration());
        
         builder.Services.AddLogging();
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<MainPageViewModel>();
-        builder.Services.AddTransient<DownloadLocationPage>();
-        builder.Services.AddTransient<DownloadLocationViewModel>();
+        builder.Services.AddTransient<DownloadPage>();
+        builder.Services.AddTransient<DownloadPageViewModel>();
+        builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddTransient<SettingsPageViewModel>();
         builder.Services.AddTransient<PRDownloader>();
         builder.Services.AddSingleton<EngineSettingsProvider>();
         builder.Services.AddHttpClient<TorrentInformationClient>();

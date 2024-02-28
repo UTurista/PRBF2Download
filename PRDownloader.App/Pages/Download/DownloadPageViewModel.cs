@@ -1,14 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace PRDownloader.App.Viewmodels;
+namespace PRDownloader.App.Pages.Download;
 
-public partial class MainPageViewModel : ObservableObject
+public partial class DownloadPageViewModel : ObservableObject
 {
     [ObservableProperty]
     private PRDownloader _downloader;
 
-    public MainPageViewModel(PRDownloader downloader)
+    public DownloadPageViewModel(PRDownloader downloader)
     {
         _downloader = downloader;
     }
