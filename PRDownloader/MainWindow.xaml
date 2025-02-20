@@ -9,6 +9,7 @@
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         Title="MainWindow"
         Height="450"
+        Background="{StaticResource DarkGreyBrush}"
         Width="800">
     <Window.Resources>
         <ResourceDictionary>
@@ -19,7 +20,18 @@
     </Window.Resources>
 
     <StackPanel Margin="50">
-        <ProgressBar Value="{Binding DownloadProgress}" Height="13" HorizontalAlignment="Stretch" />
+        <ProgressBar Value="{Binding DownloadProgress}" IsIndeterminate="False" Height="13" HorizontalAlignment="Stretch">
+            <ProgressBar.Style>
+                <Style TargetType="ProgressBar">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding State}" Value="Hashing">
+                            <Setter Property="IsIndeterminate" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+            
+        </ProgressBar>
         <DockPanel HorizontalAlignment="Stretch">
             <TextBlock Text="{Binding State}" HorizontalAlignment="Left"/>
             <TextBlock  HorizontalAlignment="Right">
@@ -32,10 +44,10 @@
             </TextBlock>
         </DockPanel>
 
-        <Button Content="Download options" Command="{Binding NavigateToOptionsCommand}" HorizontalAlignment="Center" />
-        <Button Content="{Binding State, Converter={StaticResource StateToActionTextConverter}}" Command="{Binding ToggleProgressCommand}" IsEnabled="{Binding State, Converter={StaticResource StateToCanChangeConverter}}" HorizontalAlignment="Center"  Width="73"/>
-        <Button Content="Play" IsEnabled="{Binding CanLaunchGame}" Command="{Binding LaunchGameCommand}" HorizontalAlignment="Center" />
-        <Button Content="Manual" HorizontalAlignment="Center"/>
+        <Button Style="{StaticResource MainWindowButton}" Content="Download options" Command="{Binding NavigateToOptionsCommand}" />
+        <Button Style="{StaticResource MainWindowButton}" Content="{Binding State, Converter={StaticResource StateToActionTextConverter}}" Command="{Binding ToggleProgressCommand}" IsEnabled="{Binding State, Converter={StaticResource StateToCanChangeConverter}}" />
+        <Button Style="{StaticResource MainWindowButton}" Content="Play" Command="{Binding LaunchGameCommand}" />
+        <Button Style="{StaticResource MainWindowButton}" Content="Manual" />
 
     </StackPanel>
 </Window>

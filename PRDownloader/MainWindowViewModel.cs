@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     private long _downloadSpeed;
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(LaunchGameCommand))]
     private double _downloadProgress;
     [ObservableProperty]
     private long _downloadRemaining;
@@ -35,7 +37,6 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [NotifyPropertyChangedFor(nameof(ValidMagneticUrl))]
     public string _magneticUrl;
 
-    public bool CanLaunchGame => DownloadProgress == 100;
 
     public MainWindowViewModel(EngineSettings settings, TorrentInformationClient infoClient, WindowsService windowsService, OptionsService optionsService, ILogger<MainWindowViewModel> logger)
     {
@@ -46,6 +47,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _windowsService = windowsService;
         _optionsService = optionsService;
     }
+
+    private bool CanLaunchGame => DownloadProgress >= 100;
 
     public bool ValidMagneticUrl
     {
@@ -105,7 +108,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _engine.Dispose();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanLaunchGame))]
     private void LaunchGame()
     {
 
@@ -134,10 +137,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (_prManager is null) { throw new Exception("UpdateTorrentData"); }
 
-        DownloadSpeed = _prManager.Monitor.DownloadRate;
-        DownloadProgress = _prManager.Progress;
-        DownloadRemaining = 13333;
-        State = _prManager.State;
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            DownloadSpeed = _prManager.Monitor.DownloadRate;
+            DownloadProgress = _prManager.Progress;
+            DownloadRemaining = 13333;
+            State = _prManager.State;
+        });
     }
 
 
