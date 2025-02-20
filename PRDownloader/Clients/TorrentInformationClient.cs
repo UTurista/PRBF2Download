@@ -38,7 +38,7 @@ public sealed class TorrentInformationClient
         }
         catch (Exception ex)
         {
-           // _logger.LogError(ex, "Unable to parse response.");
+            // _logger.LogError(ex, "Unable to parse response.");
         }
         return Result.Fail("Failed to parse response");
     }

@@ -4,6 +4,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <!-- Merge all necessary files into a single .exe -->
+    <PublishSingleFile>True</PublishSingleFile>
+
+    <!-- Include the SDK to avoid the user having to install it manually -->
+    <SelfContained>true</SelfContained>
+
+    <!-- With the combination of PublishSingleFile and SelfContained, we need to have this flag to ensure we really get a single .exe -->
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>  
+
+    <!-- Attempt to get the minimal size possible-->
+    <EnableCompressionInSingleFile>True</EnableCompressionInSingleFile>
+
+    <!-- PS: Don't forget about the properties that come from Directory.Build.props -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,5 +28,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.1" />
     <PackageReference Include="MonoTorrent" Version="3.0.2" />
   </ItemGroup>
-
 </Project>

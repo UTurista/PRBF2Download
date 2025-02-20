@@ -9,7 +9,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MonoTorrent;
 using MonoTorrent.Client;
-using MonoTorrent.Logging;
 using PRDownloader.Clients;
 using PRDownloader.Services;
 
