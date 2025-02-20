@@ -4,9 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRDownloader"
+        xmlns:converters="clr-namespace:PRDownloader.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <converters:BytesToHumanReadableConverter x:Key="BytesToHumanReadableConverter" />
+            <converters:StateToActionTextConverter x:Key="StateToActionTextConverter" />
+            <converters:StateToCanChangeConverter x:Key="StateToCanChangeConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
 
-    </Grid>
+    <StackPanel Margin="50">
+        <ProgressBar Value="{Binding DownloadProgress}" Height="13" HorizontalAlignment="Stretch" />
+        <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="{Binding State}" HorizontalAlignment="Left"/>
+            <TextBlock  HorizontalAlignment="Right">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}/s; {1:F1}%">
+                        <Binding Path="DownloadSpeed" Converter="{StaticResource BytesToHumanReadableConverter}"/>
+                        <Binding Path="DownloadProgress"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DockPanel>
+
+        <Button Content="Download options" Command="{Binding NavigateToOptionsCommand}" HorizontalAlignment="Center" />
+        <Button Content="{Binding State, Converter={StaticResource StateToActionTextConverter}}" Command="{Binding ToggleProgressCommand}" IsEnabled="{Binding State, Converter={StaticResource StateToCanChangeConverter}}" HorizontalAlignment="Center"  Width="73"/>
+        <Button Content="Play" IsEnabled="{Binding CanLaunchGame}" Command="{Binding LaunchGameCommand}" HorizontalAlignment="Center" />
+        <Button Content="Manual" HorizontalAlignment="Center"/>
+
+    </StackPanel>
 </Window>

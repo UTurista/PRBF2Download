@@ -1,0 +1,67 @@
+<Window x:Class="PRDownloader.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PRDownloader"
+        xmlns:converters="clr-namespace:PRDownloader.Converters"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:OptionsWindowViewModel}"
+        Title="OptionsWindow"
+        Height="213"
+        Width="388">
+	<Window.Resources>
+		<ResourceDictionary>
+			<converters:BytesToHumanReadableConverter x:Key="BytesToHumanReadableConverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+
+		<!-- Limit Download -->
+		<CheckBox Content="Limit Download speed (kB/s)" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsLimitDownloadEnabled}"/>
+        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,0,0" Grid.Row="0" Grid.Column="1" Visibility="{Binding IsLimitDownloadEnabled, Converter={StaticResource BoolToVisConverter}}" Text="{Binding LimitDownloadSpeed, UpdateSourceTrigger=PropertyChanged}" />
+
+		<!-- Limit Upload -->
+		<CheckBox Content="Limit Upload speed (kB/s)" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsLimitUploadEnabled}"/>
+        <TextBox Margin="5,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Visibility="{Binding IsLimitUploadEnabled, Converter={StaticResource BoolToVisConverter}}" Text="{Binding LimitUploadSpeed, UpdateSourceTrigger=PropertyChanged}" />
+
+		<!-- Allow DHT -->
+		<CheckBox Content="Allow DHT" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding IsAllowDhtEnabled}"/>
+
+		<!-- Allow Peer Exchange -->
+		<CheckBox Content="Allow Peer Exchange" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding IsAllowPeerExchangeEnabled}"/>
+
+        <!-- Download Location -->
+        <CheckBox Content="{Binding LimitDownloadSpeed}" Grid.Row="4" Grid.Column="0" IsChecked="True" IsEnabled="False" />
+        <TextBox Text="{Binding DownloadPath}" Grid.Row="4" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+ 
+        <!-- Cache Location -->
+        <CheckBox Content="{Binding LimitUploadSpeed}" Grid.Row="5" Grid.Column="0" IsChecked="True" IsEnabled="False"/>
+        <TextBox Text="{Binding CachePath}" Grid.Row="5" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+       
+        <!-- Buttons -->
+        <DockPanel Grid.Row="7" Grid.ColumnSpan="2" >
+            <Button Content="Reset" Width="75" Margin="0,10,5,0" HorizontalAlignment="Left" Command="{Binding ResetOptionsCommand}"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button Content="Apply" Width="75" Margin="5,10,0,0" Command="{Binding ApplyAndCloseCommand}"/>
+				<Button Content="Cancel" Width="75" Margin="5,10,0,0" Command="{Binding CancelAndCloseCommand}"/>
+			</StackPanel>
+		</DockPanel>
+	</Grid>
+</Window>
