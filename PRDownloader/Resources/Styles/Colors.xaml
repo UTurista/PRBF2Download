@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
    
-    
-    
-    
-    <!-- Project Reality Color Palette -->
+
+    <!-- =============
+    ======== Project Reality Color Palette 
+    ======== -->
 
     <!-- #3399CC -->
     <Color x:Key="Blue" R="51" G="153" B="204" A="255"/>
@@ -12,8 +12,6 @@
     <Color x:Key="LightBlack" R="34" G="34" B="34" A="255"/>
     <!-- #333333 -->
     <Color x:Key="DarkGrey" R="51" G="51" B="51" A="255"/>
-
-
 
     <Color x:Key="AccentColor1" R="51" G="153" B="204" A="255" />
     <!-- #ff006699 -->
@@ -26,9 +24,14 @@
     <Color x:Key="AccentHighlightColor2" R="17" G="119" B="170" A="255" />
     <!-- #ffaaddff -->
     <Color x:Key="AccentHighlightColor3" R="170" G="221" B="255" A="255" />
-    
-    
-    
-    <!-- Brushes -->
+
+    <!-- =============
+     ======== Brushes 
+     ======== -->
     <SolidColorBrush x:Key="DarkGreyBrush" Color="{StaticResource DarkGrey}" />
+
+    <LinearGradientBrush x:Key="MainBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource AccentColor1}" Offset="0" />
+        <GradientStop Color="{StaticResource AccentColor2}" Offset="1" />
+    </LinearGradientBrush>
 </ResourceDictionary>

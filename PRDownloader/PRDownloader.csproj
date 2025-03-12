@@ -28,8 +28,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.1" />
     <PackageReference Include="MonoTorrent" Version="3.0.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\NewFolder\" />
-  </ItemGroup>
 </Project>

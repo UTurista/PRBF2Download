@@ -30,6 +30,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private TorrentManager? _prManager;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsDownloadProgressIndeterminate))]
     private TorrentState _state = TorrentState.Stopped;
     [ObservableProperty]
     private long _downloadSpeed;
@@ -53,6 +54,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _optionsService = optionsService;
     }
 
+    public bool IsDownloadProgressIndeterminate => State == TorrentState.Hashing || State == TorrentState.FetchingHashes || State == TorrentState.Metadata;
+
     private bool CanLaunchGame
     {
         get
@@ -65,6 +68,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             return GetExecutableSetup() is not null;
         }
     }
+
+
 
     private string? GetExecutableSetup()
     {

@@ -20,18 +20,7 @@
     </Window.Resources>
 
     <StackPanel Margin="50">
-        <ProgressBar Value="{Binding DownloadProgress}" IsIndeterminate="False" Height="13" HorizontalAlignment="Stretch">
-            <ProgressBar.Style>
-                <Style TargetType="ProgressBar">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding State}" Value="Hashing">
-                            <Setter Property="IsIndeterminate" Value="True"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ProgressBar.Style>
-            
-        </ProgressBar>
+        <ProgressBar Value="{Binding DownloadProgress}" IsIndeterminate="{Binding IsDownloadProgressIndeterminate}" Height="13" HorizontalAlignment="Stretch" />
         <DockPanel HorizontalAlignment="Stretch">
             <TextBlock Text="{Binding State}" HorizontalAlignment="Left"/>
             <TextBlock  HorizontalAlignment="Right">
