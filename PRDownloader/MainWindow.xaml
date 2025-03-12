@@ -47,7 +47,7 @@
         <Button Style="{StaticResource MainWindowButton}" Content="Download options" Command="{Binding NavigateToOptionsCommand}" />
         <Button Style="{StaticResource MainWindowButton}" Content="{Binding State, Converter={StaticResource StateToActionTextConverter}}" Command="{Binding ToggleProgressCommand}" IsEnabled="{Binding State, Converter={StaticResource StateToCanChangeConverter}}" />
         <Button Style="{StaticResource MainWindowButton}" Content="Play" Command="{Binding LaunchGameCommand}" />
-        <Button Style="{StaticResource MainWindowButton}" Content="Manual" />
+        <Button Style="{StaticResource MainWindowButton}" Content="Manual"  Command="{Binding OpenManualCommand}"/>
 
     </StackPanel>
 </Window>

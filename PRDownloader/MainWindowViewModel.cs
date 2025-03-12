@@ -3,8 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -48,14 +53,37 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _optionsService = optionsService;
     }
 
-    private bool CanLaunchGame => DownloadProgress >= 100;
+    private bool CanLaunchGame
+    {
+        get
+        {
+            if (DownloadProgress < 100)
+            {
+                return false;
+            }
+
+            return GetExecutableSetup() is not null;
+        }
+    }
+
+    private string? GetExecutableSetup()
+    {
+        var downloadPath = _optionsService.State.DownloadPath;
+        var setupExecutable = Directory.EnumerateFiles(downloadPath, "setup.exe", new EnumerationOptions
+        {
+            RecurseSubdirectories = true,
+            MatchCasing = MatchCasing.CaseInsensitive,
+        });
+
+        return setupExecutable.FirstOrDefault();
+    }
 
     public bool ValidMagneticUrl
     {
         get => MagnetLink.TryParse(MagneticUrl, out var _);
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanToggleProgress))]
     private async Task ToggleProgressAsync()
     {
         if (_prManager is null) { throw new Exception(); }
@@ -68,6 +96,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         {
             await _prManager.StartAsync();
         }
+    }
+
+    private bool CanToggleProgress()
+    {
+        return _prManager switch
+        {
+            { Complete: true } => false,
+            { State: TorrentState.Downloading or TorrentState.Stopped or TorrentState.Paused } => true,
+            _ => false
+        };
     }
 
     public async Task StartAsync()
@@ -111,13 +149,35 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(CanLaunchGame))]
     private void LaunchGame()
     {
+        var setup = GetExecutableSetup();
+        if (setup is null)
+        {
+            return;
+        }
 
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = setup,
+            UseShellExecute = true,
+        });
+
+        Application.Current.Shutdown();
     }
 
     [RelayCommand]
     private void NavigateToOptions()
     {
         _windowsService.OpenOptionsWindow();
+    }
+
+    [RelayCommand]
+    private static void OpenManual()
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "https://www.realitymod.com/manual/",
+            UseShellExecute = true,
+        });
     }
 
     private void OnStatsUpdate(object? sender, StatsUpdateEventArgs e)
