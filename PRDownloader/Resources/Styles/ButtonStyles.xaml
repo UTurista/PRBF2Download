@@ -29,6 +29,15 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="10, 5" />
         <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource ButtonBackgroundHighlight}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource ButtonBackgroundDisabled}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 
