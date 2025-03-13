@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PRDownloader.Entities;
 using PRDownloader.Services;
+using PRDownloader.Validators;
 
 namespace PRDownloader;
 
@@ -14,8 +15,12 @@ public partial class OptionsWindowViewModel : ObservableValidator
     public event EventHandler? Close;
 
     [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [DirectoryMustExist]
     private string _downloadPath;
     [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [DirectoryMustExist]
     private string _cachePath;
     [ObservableProperty]
     private bool _isLimitDownloadEnabled;
